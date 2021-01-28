@@ -14,6 +14,7 @@ function Dashboard(props) {
     props.history.push('/login');
   }
  
+
   return (
     <div>
       <Button variant="success" onClick={handleLogout} >Logout</Button>{' '}

@@ -161,3 +161,8 @@ input[placeholder] {
 	margin-right: 5px;
 	cursor: default;
 }
+.carousel-align{
+	width: 50% !important;
+	margin: auto;
+
+}

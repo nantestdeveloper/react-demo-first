@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import Nav from 'react-bootstrap/Nav'
 import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
 import axios from 'axios';
  
 import Login from './Login';
 import Signup from './Signup';
 import Dashboard from './Dashboard';
-import Home from './Home';
 import TodosContainer from './components/TodosContainer'
-import CKEditor from './components/CKEditor'
+import BootstrapDivToggle from './components/BootstrapDivToggle'
 import PrivateRoute from './Utils/PrivateRoute';
 import PublicRoute from './Utils/PublicRoute';
-import { getToken, removeUserSession, setUserSession } from './Utils/Common';
- 
+
+import { getToken, removeUserSession, setUserSession,getUser } from './Utils/Common';
+
 function App() {
+  const user = getUser();
+
   const [authLoading, setAuthLoading] = useState(true);
- 
   useEffect(() => {
     const token = getToken();
     if (!token) {
@@ -40,25 +42,39 @@ function App() {
       
         <div>
           <div className="header">
-            <NavLink exact activeClassName="active" to="/">Home</NavLink>
             <NavLink activeClassName="active" to="/signup">Signup</NavLink><small>(Access without token only)</small>
             <NavLink activeClassName="active" to="/login">Login</NavLink><small>(Access without token only)</small>
             <NavLink activeClassName="active" to="/dashboard">Dashboard</NavLink><small>(Access with token only)</small>
             <NavLink activeClassName="active" to="/todoscontainer">Todos</NavLink>
-            <NavLink activeClassName="active" to="/ckeditor">Editor</NavLink>
+            <NavLink activeClassName="active" to="/BootstrapDivToggle">BootstrapDivToggle</NavLink>
           </div>
           <div className="content">
             <Switch>
-              <Route exact path="/" component={Home} />
               <PublicRoute path="/signup" component={Signup} />
               <PublicRoute path="/login" component={Login} />
               <PrivateRoute path="/dashboard" component={Dashboard} />
               <PublicRoute path="/todoscontainer" component={TodosContainer} />
-              <PublicRoute path="/ckeditor" component={CKEditor} />
+              <PublicRoute path="/BootstrapDivToggle" component={BootstrapDivToggle} />
             </Switch>
           </div>
         </div>
       </BrowserRouter>
+      <Nav justify variant="tabs" defaultActiveKey="/home">
+        <Nav.Item>
+          <Nav.Link href="/home">Active</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link-1">Loooonger NavLink</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link-2">Link</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="disabled" disabled>
+            Disabled
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
     </div>
   );
 }

@@ -12,12 +12,12 @@ class TodosContainer extends Component {
   }
 
   getTodos() {
-    let axiosConfig = {
-      headers: {
-        "Authorization": sessionStorage["token"],
+    // let axiosConfig = {
+    //   headers: {
+    //     "Authorization": sessionStorage["token"],
 
-      }
-    };
+    //   }
+    // };
     axios.get('http://localhost:4000/api/v1/todos')
     .then(response => {
       this.setState({todos: response.data})
